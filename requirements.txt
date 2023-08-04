@@ -1,0 +1,5 @@
+requests~=2.31.0
+urllib3~=2.0.4
+Resiliparse~=0.14.3
+FastWARC~=0.14.3
+clean-text~=0.6.0
