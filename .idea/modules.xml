@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CommonCrawler.iml" filepath="$PROJECT_DIR$/.idea/CommonCrawler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/WarcProcessor.iml" filepath="$PROJECT_DIR$/.idea/WarcProcessor.iml" />
     </modules>
   </component>
 </project>

@@ -9,10 +9,10 @@ from cleantext import clean
 from .skip_tags import SKIP_TAGS
 
 # File to be processed
-INPUT_FILE = './data/sample.warc.gz'
+INPUT_FILE = './data/'
 
 # File location where the output files must be stored
-OUTPUT_FILE_PATH = './output'
+OUTPUT_FILE_PATH = './output/'
 
 # Number of workers for processing the files
 NUM_WORKERS = 4
@@ -68,7 +68,7 @@ class Parser:
         self.skip_flag = False
         self.skip_tag = None
         self.file = open(
-            f'{OUTPUT_FILE_PATH}/cleaned_site_{Parser.current_process}.txt', 'w')
+            f'{OUTPUT_FILE_PATH}cleaned_site_{Parser.current_process}.txt', 'w')
 
     def tag_start_callback(self, ctx: DOMContext):
         """
@@ -113,7 +113,6 @@ class Parser:
         """
         Callback function for the corresponding end tag.
 
-
         Arguments:
         ctx (DOMContext): Context of the node in the DOM tree
         """
@@ -131,7 +130,7 @@ class Parser:
         """
         Destructor for the class.
         """
-        print(f'Processing files ...', end='\r')
+        print(f'Processing file {Parser.current_process}', end='\r')
 
 
 def parse_record(record):
@@ -155,7 +154,6 @@ def parse_record(record):
 
 
 def parse_files(input_file=INPUT_FILE,
-                output_file_path=OUTPUT_FILE_PATH,
                 num_workers=NUM_WORKERS,
                 num_files_per_run=5):
     """
@@ -173,8 +171,8 @@ def parse_files(input_file=INPUT_FILE,
             raise FileNotFoundError(f"The file '{input_file}' does not exist.")
 
         # Check if the directory exists
-        if not os.path.isdir(output_file_path):
-            raise NotADirectoryError(f"The directory '{output_file_path}' does not exist.")
+        if not os.path.isdir(OUTPUT_FILE_PATH):
+            raise NotADirectoryError(f"The directory '{OUTPUT_FILE_PATH}' does not exist.")
 
     except FileNotFoundError as file_err:
         print(file_err)
@@ -186,22 +184,26 @@ def parse_files(input_file=INPUT_FILE,
 
     print(f"\n\nStarting parsing sites in {input_file}")
     records = []
+
+    # Open the input file and iterate over the records which are of the type response
     stream = open(input_file, 'rb')
     for index, record in enumerate(ArchiveIterator(stream, WarcRecordType.response)):
 
         if index % num_files_per_run == 0 and records:
+            # Run a new thread pool with the current records
             with ThreadPoolExecutor(num_workers) as pool:
                 pool.map(parse_record, records)
+
             records = []
         else:
             records.append(record.reader.read())
-        if index == 10:
-            break
+
+    # Process the remaining records
     if records:
         with ThreadPoolExecutor(num_workers) as pool:
             pool.map(parse_record, records)
 
-    print(f"Finished parsing. Output in {output_file_path}")
+    print(f"Finished parsing. Output in {OUTPUT_FILE_PATH}")
 
 
 if __name__ == '__main__':

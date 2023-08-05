@@ -5,11 +5,12 @@ import sys
 import requests
 import os
 
+
 # URL of the large file to be downloaded
-URL = 'https://data.commoncrawl.org/crawl-data/CC-MAIN-2023-23/segments/1685224643388.45/warc/CC-MAIN-20230527223515-20230528013515-00000.warc.gz'
+DEFAULT_URL = 'https://data.commoncrawl.org/crawl-data/CC-MAIN-2023-23/segments/1685224643388.45/warc/CC-MAIN-20230527223515-20230528013515-00003.warc.gz'
 
 # Output file for the downloaded file
-DOWNLOAD_FILE_PATH = './data'
+DOWNLOAD_FILE_PATH = './data/'
 
 # Number of concurrent workers for downloading chunks
 NUM_WORKERS = 4
@@ -99,11 +100,11 @@ async def download_file_chunks(run, loop, url, download_file_path=DOWNLOAD_FILE_
 
             # Remove the temporary chunk file
             os.remove(chunk_path)
-
+    print('Progress: 100%. Download complete.')
     print('\nData merging complete.')
 
 
-def download_large_file(url=URL, num_workers=NUM_WORKERS, download_file_path=DOWNLOAD_FILE_PATH):
+def download_large_file(url=DEFAULT_URL, num_workers=NUM_WORKERS, download_file_path=DOWNLOAD_FILE_PATH):
     """
     Download a large file from a URL using asynchronous operations and multithreading.
 
@@ -139,6 +140,5 @@ def download_large_file(url=URL, num_workers=NUM_WORKERS, download_file_path=DOW
         loop.close()
 
 
-# Entry point of the script
 if __name__ == "__main__":
     download_large_file()

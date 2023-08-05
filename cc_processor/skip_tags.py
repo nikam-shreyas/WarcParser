@@ -10,5 +10,6 @@ SKIP_TAGS = {
     'script',
     'style',
     'legend',
-    'nav'
+    'nav',
+    'a'
 }
