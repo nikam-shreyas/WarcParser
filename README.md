@@ -3,8 +3,6 @@
 
 The WARC Processor project is a Python project that can be used to download WARC files from the Common Crawl website and process them into an interleaved multimodal dataset. The dataset can then be used to train a multimodal language model.  The project is designed to be efficient and scalable, so it can be used to process large WARC files. The project also removes boilerplate content and redundant text from the dataset, which helps to improve the quality of the data.
 
-
-
 ## Features
 - Streaming and Chunked Processing
 - Concurrency and Parallelism
@@ -16,6 +14,8 @@ The WARC Processor project is a Python project that can be used to download WARC
 - Among the records in the WARC files, only the 'response' files have been processed. This is because the required information for training the models is primarily found in response records. The processing of 'revisit' and 'resource' records may be considered for future enhancements.
 - All hyperlinks leading to other pages have been removed, except for those contained within images, videos, and audios. If preservation of these hyperlinks is desired (e.g., when they are integrated with text and not part of the navigation bar), it is possible to retain them. Simply removing the 'a' tag from the ```skip_tags.py``` file will achieve this.
 - Some audio and video files contain multiple links. To accommodate this, all links have been preserved in a comma-separated format. This ensures that the various links associated with multimedia content are captured accurately.
+- A distinct and targeted set of special characters has been delineated for preservation throughout data processing. This preservation strategy involves the selective retention of specific special characters, rather than a comprehensive removal. This discerning approach aims to uphold the authenticity, context, and linguistic intricacies of websites across various languages.
+
 
 ## Installation
 

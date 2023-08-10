@@ -41,7 +41,7 @@ def clean_text(text):
                  no_numbers=False,  # keep numbers
                  no_digits=False,  # keep digits
                  no_currency_symbols=False,  # keep currency symbols
-                 no_punct=False,  # remove punctuations
+                 no_punct=False,  # remove punctuationsm
                  replace_with_url="<URL>",
                  replace_with_email="<EMAIL>",
                  replace_with_phone_number="<PHONE>",
