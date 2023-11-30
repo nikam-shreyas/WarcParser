@@ -3,6 +3,8 @@
 
 The WARC Processor project is a Python project that can be used to download WARC files from the Common Crawl website and process them into an interleaved multimodal dataset. The dataset can then be used to train a multimodal language model.  The project is designed to be efficient and scalable, so it can be used to process large WARC files. The project also removes boilerplate content and redundant text from the dataset, which helps to improve the quality of the data.
 
+Read more here: [Project Blog](https://www.nikam-shreyas.com/blogs/project-1-warcparser.html)
+
 ## Features
 - Streaming and Chunked Processing
 - Concurrency and Parallelism
